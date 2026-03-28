@@ -1,16 +1,52 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
+import Expenses from "./pages/Expenses";
+import Vehicles from "./pages/Vehicles";
+import { useAppData } from "./hooks/useAppData";
 
 function App() {
+  const {
+    data,
+    addVehicle,
+    updateVehicle,
+    deleteVehicle,
+    addExpense,
+    updateExpense,
+    deleteExpense,
+  } = useAppData();
 
   return (
-    
-      <div>
-        <h1>AutoDépenses</h1>
-        <p>
-          Comment gérer les dépenses de vos véhicules
-        </p>
-      </div>
-    
-  )
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard data={data} />} />
+          <Route
+            path="/expenses"
+            element={
+              <Expenses
+                data={data}
+                onAdd={addExpense}
+                onUpdate={updateExpense}
+                onDelete={deleteExpense}
+              />
+            }
+          />
+          <Route
+            path="/vehicles"
+            element={
+              <Vehicles
+                data={data}
+                onAdd={addVehicle}
+                onUpdate={updateVehicle}
+                onDelete={deleteVehicle}
+              />
+            }
+          />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
