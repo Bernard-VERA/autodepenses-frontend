@@ -1,121 +1,107 @@
 import { useState } from "react";
-import VehicleForm from "../components/VehicleForm";
 
-export default function Vehicles({ data, onAdd, onUpdate, onDelete }) {
-  const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(null);
+export default function VehicleForm({ initial, onSubmit, onCancel }) {
+  const [name, setName] = useState(initial?.name || "");
+  const [brand, setBrand] = useState(initial?.brand || "");
+  const [model, setModel] = useState(initial?.model || "");
+  const [year, setYear] = useState(initial?.year?.toString() || "");
+  const [purchaseDate, setPurchaseDate] = useState(initial?.purchaseDate || "");
+  const [purchasePrice, setPurchasePrice] = useState(
+    initial?.purchasePrice?.toString() || ""
+  );
+  const [initialMileage, setInitialMileage] = useState(
+    initial?.initialMileage?.toString() || ""
+  );
 
-  const handleSubmit = (values) => {
-    if (editing) {
-      onUpdate({ ...values, id: editing.id });
-      setEditing(null);
-    } else {
-      onAdd(values);
-    }
-    setShowForm(false);
-  };
-
-  const handleEdit = (v) => {
-    setEditing(v);
-    setShowForm(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name.trim()) return alert("Le nom est obligatoire.");
+    onSubmit({
+      name: name.trim(),
+      brand: brand.trim() || undefined,
+      model: model.trim() || undefined,
+      year: year ? parseInt(year) : undefined,
+      purchaseDate: purchaseDate || undefined,
+      purchasePrice: purchasePrice ? parseFloat(purchasePrice) : undefined,
+      initialMileage: initialMileage ? parseInt(initialMileage) : undefined,
+    });
   };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "1rem",
-        }}
-      >
-        <h1 style={{ marginBottom: 0 }}>Véhicules</h1>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            setEditing(null);
-            setShowForm(true);
-          }}
-        >
-          ➕ Ajouter
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label>Nom du véhicule *</label>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          placeholder="Ex: Ma Clio"
+        />
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label>Marque</label>
+          <input
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            placeholder="Ex: Renault"
+          />
+        </div>
+        <div className="form-group">
+          <label>Modèle</label>
+          <input
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            placeholder="Ex: Clio V"
+          />
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label>Année</label>
+          <input
+            type="number"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            placeholder="2021"
+          />
+        </div>
+        <div className="form-group">
+          <label>Date d'achat</label>
+          <input
+            type="date"
+            value={purchaseDate}
+            onChange={(e) => setPurchaseDate(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label>Prix d'achat (€)</label>
+          <input
+            type="number"
+            step="0.01"
+            value={purchasePrice}
+            onChange={(e) => setPurchasePrice(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Kilométrage initial</label>
+          <input
+            type="number"
+            value={initialMileage}
+            onChange={(e) => setInitialMileage(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="form-actions">
+        <button type="submit" className="btn btn-primary">
+          {initial ? "Enregistrer" : "Ajouter"}
+        </button>
+        <button type="button" className="btn btn-secondary" onClick={onCancel}>
+          Annuler
         </button>
       </div>
-
-      {data.vehicles.length === 0 ? (
-        <div className="card empty-state">
-          <p>Aucun véhicule enregistré</p>
-        </div>
-      ) : (
-        <div className="card">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Marque / Modèle</th>
-                <th>Année</th>
-                <th>Km initial</th>
-                <th>Prix d'achat</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.vehicles.map((v) => (
-                <tr key={v.id}>
-                  <td style={{ fontWeight: 600 }}>{v.name}</td>
-                  <td>
-                    {[v.brand, v.model].filter(Boolean).join(" ") || "—"}
-                  </td>
-                  <td>{v.year || "—"}</td>
-                  <td>
-                    {v.initialMileage != null
-                      ? v.initialMileage.toLocaleString("fr-FR") + " km"
-                      : "—"}
-                  </td>
-                  <td className="amount">
-                    {v.purchasePrice != null
-                      ? v.purchasePrice.toLocaleString("fr-FR", {
-                          minimumFractionDigits: 2,
-                        }) + " €"
-                      : "—"}
-                  </td>
-                  <td>
-                    <div className="actions-cell">
-                      <button
-                        className="btn btn-secondary btn-sm"
-                        onClick={() => handleEdit(v)}
-                        title="Modifier"
-                      >
-                        ✏️
-                      </button>
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => onDelete(v.id)}
-                        title="Supprimer"
-                      >
-                        🗑️
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {showForm && (
-        <div className="modal-overlay" onClick={() => setShowForm(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{editing ? "Modifier le véhicule" : "Nouveau véhicule"}</h2>
-            <VehicleForm
-              initial={editing || undefined}
-              onSubmit={handleSubmit}
-              onCancel={() => setShowForm(false)}
-            />
-          </div>
-        </div>
-      )}
-    </div>
+    </form>
   );
 }

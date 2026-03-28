@@ -1,89 +1,59 @@
-import { useState, useMemo } from "react";
-import ExpenseForm from "../components/ExpenseForm";
+import { useState } from "react";
 
-export default function Expenses({ data, onAdd, onUpdate, onDelete }) {
-  const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(null);
-
-  const [filterVehicle, setFilterVehicle] = useState("all");
-  const [filterCategory, setFilterCategory] = useState("all");
-  const [filterFrom, setFilterFrom] = useState("");
-  const [filterTo, setFilterTo] = useState("");
-
-  const filtered = useMemo(() => {
-    return data.expenses
-      .filter((e) => filterVehicle === "all" || e.vehicleId === filterVehicle)
-      .filter(
-        (e) => filterCategory === "all" || e.categoryId === filterCategory
-      )
-      .filter((e) => !filterFrom || e.date >= filterFrom)
-      .filter((e) => !filterTo || e.date <= filterTo)
-      .sort((a, b) => b.date.localeCompare(a.date));
-  }, [data.expenses, filterVehicle, filterCategory, filterFrom, filterTo]);
-
-  const vehicleMap = Object.fromEntries(
-    data.vehicles.map((v) => [v.id, v.name])
+export default function ExpenseForm({
+  vehicles,
+  categories,
+  initial,
+  onSubmit,
+  onCancel,
+}) {
+  const [vehicleId, setVehicleId] = useState(
+    initial?.vehicleId || (vehicles[0]?.id ?? "")
   );
-  const categoryMap = Object.fromEntries(
-    data.categories.map((c) => [c.id, c.label])
+  const [date, setDate] = useState(
+    initial?.date || new Date().toISOString().slice(0, 10)
   );
+  const [mileage, setMileage] = useState(initial?.mileage?.toString() || "");
+  const [categoryId, setCategoryId] = useState(
+    initial?.categoryId || categories[0]?.id || ""
+  );
+  const [operationName, setOperationName] = useState(
+    initial?.operationName || ""
+  );
+  const [amount, setAmount] = useState(initial?.amount?.toString() || "");
+  const [supplier, setSupplier] = useState(initial?.supplier || "");
+  const [comment, setComment] = useState(initial?.comment || "");
 
-  const fmt = (n) =>
-    n.toLocaleString("fr-FR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }) + " €";
-
-  const handleSubmit = (values) => {
-    if (editing) {
-      onUpdate({ ...values, id: editing.id });
-      setEditing(null);
-    } else {
-      onAdd(values);
-    }
-    setShowForm(false);
-  };
-
-  const handleEdit = (e) => {
-    setEditing(e);
-    setShowForm(true);
-  };
-
-  const handleDelete = (id) => {
-    if (confirm("Supprimer cette dépense ?")) onDelete(id);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!vehicleId) return alert("Sélectionnez un véhicule.");
+    if (!date) return alert("La date est obligatoire.");
+    if (!categoryId) return alert("Sélectionnez une catégorie.");
+    if (!amount || isNaN(parseFloat(amount)))
+      return alert("Le montant doit être un nombre.");
+    onSubmit({
+      vehicleId,
+      date,
+      mileage: parseInt(mileage) || 0,
+      categoryId,
+      operationName: operationName.trim(),
+      amount: parseFloat(amount),
+      supplier: supplier.trim() || undefined,
+      comment: comment.trim() || undefined,
+    });
   };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "1rem",
-        }}
-      >
-        <h1 style={{ marginBottom: 0 }}>Dépenses</h1>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            setEditing(null);
-            setShowForm(true);
-          }}
-        >
-          ➕ Ajouter
-        </button>
-      </div>
-
-      <div className="filters-bar card">
+    <form onSubmit={handleSubmit}>
+      <div className="form-row">
         <div className="form-group">
-          <label>Véhicule</label>
+          <label>Véhicule *</label>
           <select
-            value={filterVehicle}
-            onChange={(e) => setFilterVehicle(e.target.value)}
+            value={vehicleId}
+            onChange={(e) => setVehicleId(e.target.value)}
+            required
           >
-            <option value="all">Tous</option>
-            {data.vehicles.map((v) => (
+            {vehicles.map((v) => (
               <option key={v.id} value={v.id}>
                 {v.name}
               </option>
@@ -91,107 +61,86 @@ export default function Expenses({ data, onAdd, onUpdate, onDelete }) {
           </select>
         </div>
         <div className="form-group">
-          <label>Catégorie</label>
+          <label>Date *</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label>Kilométrage</label>
+          <input
+            type="number"
+            value={mileage}
+            onChange={(e) => setMileage(e.target.value)}
+            placeholder="Ex: 45200"
+          />
+        </div>
+        <div className="form-group">
+          <label>Catégorie *</label>
           <select
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            required
           >
-            <option value="all">Toutes</option>
-            {data.categories.map((c) => (
+            {categories.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.label}
               </option>
             ))}
           </select>
         </div>
+      </div>
+      <div className="form-group">
+        <label>Nom de l'opération</label>
+        <input
+          value={operationName}
+          onChange={(e) => setOperationName(e.target.value)}
+          placeholder="Ex: Plein SP95"
+        />
+      </div>
+      <div className="form-row">
         <div className="form-group">
-          <label>Du</label>
+          <label>Montant (€) *</label>
           <input
-            type="date"
-            value={filterFrom}
-            onChange={(e) => setFilterFrom(e.target.value)}
+            type="number"
+            step="0.01"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+            placeholder="72.50"
           />
         </div>
         <div className="form-group">
-          <label>Au</label>
+          <label>Fournisseur</label>
           <input
-            type="date"
-            value={filterTo}
-            onChange={(e) => setFilterTo(e.target.value)}
+            value={supplier}
+            onChange={(e) => setSupplier(e.target.value)}
+            placeholder="Ex: TotalEnergies"
           />
         </div>
       </div>
-
-      <div className="card">
-        {filtered.length === 0 ? (
-          <div className="empty-state">
-            <p>Aucune dépense trouvée</p>
-          </div>
-        ) : (
-          <div style={{ overflowX: "auto" }}>
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Véhicule</th>
-                  <th>Km</th>
-                  <th>Catégorie</th>
-                  <th>Opération</th>
-                  <th>Montant</th>
-                  <th>Fournisseur</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map((e) => (
-                  <tr key={e.id}>
-                    <td>{new Date(e.date).toLocaleDateString("fr-FR")}</td>
-                    <td>{vehicleMap[e.vehicleId] || "—"}</td>
-                    <td>{e.mileage.toLocaleString("fr-FR")}</td>
-                    <td>{categoryMap[e.categoryId] || e.categoryId}</td>
-                    <td>{e.operationName}</td>
-                    <td className="amount">{fmt(e.amount)}</td>
-                    <td>{e.supplier || "—"}</td>
-                    <td>
-                      <div className="actions-cell">
-                        <button
-                          className="btn btn-secondary btn-sm"
-                          onClick={() => handleEdit(e)}
-                          title="Modifier"
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDelete(e.id)}
-                          title="Supprimer"
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+      <div className="form-group">
+        <label>Commentaire</label>
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          rows={2}
+          placeholder="Notes..."
+        />
       </div>
-
-      {showForm && (
-        <div className="modal-overlay" onClick={() => setShowForm(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{editing ? "Modifier la dépense" : "Nouvelle dépense"}</h2>
-            <ExpenseForm
-              vehicles={data.vehicles}
-              categories={data.categories}
-              initial={editing || undefined}
-              onSubmit={handleSubmit}
-              onCancel={() => setShowForm(false)}
-            />
-          </div>
-        </div>
-      )}
-    </div>
+      <div className="form-actions">
+        <button type="submit" className="btn btn-primary">
+          {initial ? "Enregistrer" : "Ajouter"}
+        </button>
+        <button type="button" className="btn btn-secondary" onClick={onCancel}>
+          Annuler
+        </button>
+      </div>
+    </form>
   );
 }
