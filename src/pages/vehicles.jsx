@@ -47,60 +47,62 @@ export default function Vehicles({ data, onAdd, onUpdate, onDelete }) {
           <p>Aucun véhicule enregistré</p>
         </div>
       ) : (
-        <div className="card">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Marque / Modèle</th>
-                <th>Année</th>
-                <th>Km initial</th>
-                <th>Prix d'achat</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.vehicles.map((v) => (
-                <tr key={v.id}>
-                  <td style={{ fontWeight: 600 }}>{v.name}</td>
-                  <td>
-                    {[v.brand, v.model].filter(Boolean).join(" ") || "—"}
-                  </td>
-                  <td>{v.year || "—"}</td>
-                  <td>
-                    {v.initialMileage != null
-                      ? v.initialMileage.toLocaleString("fr-FR") + " km"
-                      : "—"}
-                  </td>
-                  <td className="amount">
-                    {v.purchasePrice != null
-                      ? v.purchasePrice.toLocaleString("fr-FR", {
-                          minimumFractionDigits: 2,
-                        }) + " €"
-                      : "—"}
-                  </td>
-                  <td>
-                    <div className="actions-cell">
-                      <button
-                        className="btn btn-secondary btn-sm"
-                        onClick={() => handleEdit(v)}
-                        title="Modifier"
-                      >
-                        ✏️
-                      </button>
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => onDelete(v.id)}
-                        title="Supprimer"
-                      >
-                        🗑️
-                      </button>
-                    </div>
-                  </td>
+        <div className="card" >
+          <div style={{ overflowX: "auto" }}>
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Marque / Modèle</th>
+                  <th>Année</th>
+                  <th>Km initial</th>
+                  <th>Prix d'achat</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.vehicles.map((v) => (
+                  <tr key={v.id}>
+                    <td style={{ fontWeight: 600 }}>{v.name}</td>
+                    <td>
+                      {[v.brand, v.model].filter(Boolean).join(" ") || "—"}
+                    </td>
+                    <td>{v.year || "—"}</td>
+                    <td>
+                      {v.initialMileage != null
+                        ? v.initialMileage.toLocaleString("fr-FR") + " km"
+                        : "—"}
+                    </td>
+                    <td className="amount">
+                      {v.purchasePrice != null
+                        ? v.purchasePrice.toLocaleString("fr-FR", {
+                            minimumFractionDigits: 2,
+                          }) + " €"
+                        : "—"}
+                    </td>
+                    <td>
+                      <div className="actions-cell">
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => handleEdit(v)}
+                          title="Modifier"
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => onDelete(v.id)}
+                          title="Supprimer"
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 
