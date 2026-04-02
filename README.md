@@ -6,22 +6,32 @@
 ![image](https://img.shields.io/badge/VITE-323330?style=for-the-badge&logo=vite&logoColor=white)
 ![image](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=FFFFFF)
 ![image](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=FFFFFF)
+![image](https://img.shields.io/badge/Github%20Actions-%232088FF?style=for-the-badge&logo=githubactions&logoColor=FFFFFF)
+![image](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![image](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![image](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+ ![image](https://img.shields.io/badge/VIBE_CODING-5CD6D4?style=for-the-badge&logoColor=white&labelColor=white&color=0772ED)
+
 
 ## 🌦️ Présentation
 
 AutoDépenses est une application web en cours de développement visant à centraliser et suivre facilement toutes les dépenses liées à mes véhicules : carburant, entretien, réparations, accessoires, et plus encore. L’objectif est d’offrir une vision claire de l’historique des coûts et d’aider à mieux anticiper les dépenses futures.  
 
 Le projet est construit en deux volets complémentaires :   
- 
-1. Frontend — Gestion locale et interface utilisateur
+
+1. Création du Frontend — Gestion locale et interface utilisateur
 *	Application web intuitive permettant d’ajouter, modifier et consulter toutes les dépenses.
 *	Stockage des données directement dans le localStorage, garantissant une utilisation rapide et sans connexion.
 *	Interface pensée pour être simple, efficace et agréable à utiliser.  
 
-2. Backend — Authentification et base de données
+2. Création d'un Backend — Authentification et base de données
 *	Mise en place d’un système d’authentification utilisateur pour sécuriser l’accès aux données.
 *	Stockage centralisé des dépenses dans une base de données, permettant la synchronisation entre plusieurs appareils.
-*	API dédiée pour gérer les opérations CRUD et assurer une transition fluide entre la version locale et la version connectée.
+*	API dédiée pour gérer les opérations CRUD et assurer une transition fluide entre la version locale et la version connectée.  
+<br/>
+<br/>
+Vous pouvez suivre l'avancée du projet sur : <a href="https://bernard-vera.github.io/autodepenses-frontend/" target="_blank">AutoDépenses</a>
+
 
 ----
 # Si vous clonez le projet
