@@ -3,9 +3,12 @@
   <head>
     <meta charset="utf-8">
     <script>
-      // Redirige vers index.html dans ton repo GitHub Pages
-      const repo = "/autodepenses-frontend";
-      const redirectTo = repo + "/index.html";
+      // Récupère la route demandée (ex: /vehicles)
+      const path = window.location.pathname.replace("/autodepenses-frontend", "");
+
+      // Transforme en route hashée
+      const redirectTo = "/autodepenses-frontend/#" + path;
+
       window.location.replace(redirectTo);
     </script>
   </head>
