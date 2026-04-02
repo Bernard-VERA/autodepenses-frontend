@@ -41,7 +41,7 @@ export const defaultData = {
       mileage: 46800,
       categoryId: "maintenance",
       operationName: "Vidange + filtres",
-      amount: 190.0,
+      amount: 189.0,
       supplier: "Norauto",
       comment: "Vidange 30 000 km",
     },
