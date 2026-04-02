@@ -17,7 +17,7 @@
 
 AutoDépenses est une application web en cours de développement visant à centraliser et suivre facilement toutes les dépenses liées à mes véhicules : carburant, entretien, réparations, accessoires, et plus encore. L’objectif est d’offrir une vision claire de l’historique des coûts et d’aider à mieux anticiper les dépenses futures.  
 
-Le projet est construit en deux volets complémentaires :   
+Le projet est construit en deux étapes successives :   
 
 1. Création du Frontend — Gestion locale et interface utilisateur
 *	Application web intuitive permettant d’ajouter, modifier et consulter toutes les dépenses.
@@ -50,3 +50,10 @@ React + Vite permet un développement rapide et optimisé. Deux plugins sont dis
 
 Pour une meilleure qualité de code, l'intégration de TypeScript et ESLint est recommandée. 
 [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) pour savoir comment utiliser [`typescript-eslint`](https://typescript-eslint.io) dans votre projet.
+
+
+----
+
+<p align="center" width="100%">
+    <img width="90%" src="https://github.com/Bernard-VERA/autodepenses-frontend/blob/main/public/autodepenses.jpg"> 
+</p>
