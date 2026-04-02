@@ -17,7 +17,7 @@ function App() {
   } = useAppData();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/autodepenses-frontend">
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard data={data} />} />
