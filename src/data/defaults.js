@@ -13,7 +13,7 @@ export const defaultData = {
   vehicles: [
     {
       id: "v1",
-      name: "Ma Clio",
+      name: "Exemple Clio",
       brand: "Renault",
       model: "Clio V",
       year: 2021,
