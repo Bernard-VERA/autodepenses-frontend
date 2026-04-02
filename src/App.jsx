@@ -17,7 +17,7 @@ function App() {
   } = useAppData();
 
   return (
-    <BrowserRouter basename="/autodepenses-frontend"> // Ce texte - basename="/autodepenses-frontend" - sera a supprimer pour déployer sur Vercel. Il a été ajouté uniquement pour le déploiement sur Github Pages
+    <BrowserRouter basename="/autodepenses-frontend"> {/*Ce texte - basename="/autodepenses-frontend" - sera a supprimer pour déployer sur Vercel. Il a été ajouté uniquement pour le déploiement sur Github Pages */} 
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard data={data} />} />
