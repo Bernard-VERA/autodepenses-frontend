@@ -29,10 +29,11 @@ Le projet est construit en deux étapes successives :
 *	Stockage centralisé des dépenses dans une base de données, permettant la synchronisation entre plusieurs appareils.
 *	API dédiée pour gérer les opérations CRUD et assurer une transition fluide entre la version locale et la version connectée.  
 <br/>
+Pour l'instant, seule la partie Frontend est déployée. La parti Backend n'est pas achevée.
 <br/>
 Vous pouvez suivre l'avancée du projet sur : <a href="https://bernard-vera.github.io/autodepenses-frontend/" target="_blank">AutoDépenses</a>
-
-
+<br/>
+Pour voir la partie Backend du projet, cliquez ici : <a href="https://github.com/Bernard-VERA/autodepenses-backend" target="_blank">AutoDépenses Backend</a>
 ----
 # Si vous clonez le projet
 Faire : npm install<br/>
