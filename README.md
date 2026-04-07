@@ -36,8 +36,9 @@ Vous pouvez suivre l'avancée du projet sur : <a href="https://bernard-vera.gith
 
 <br/>
 Pour voir la partie Backend du projet, cliquez ici : <a href="https://github.com/Bernard-VERA/autodepenses-backend" target="_blank">AutoDépenses Backend</a>  
- 
+
 <br/>
+
 ----
 # Si vous clonez le projet
 Faire : npm install<br/>
