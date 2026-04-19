@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Code-for-github-pages" ]
 
 permissions:
   contents: read
