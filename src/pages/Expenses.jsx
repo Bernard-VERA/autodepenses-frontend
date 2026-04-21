@@ -163,7 +163,7 @@ export default function Expenses({ data, onAdd, onUpdate, onDelete }) {
                         </button>
                         <button
                           className="btn btn-danger btn-sm"
-                          onClick={() => handleDelete(e.id)}
+                          onClick={() => handleDelete(e._id)}
                           title="Supprimer"
                         >
                           🗑️
