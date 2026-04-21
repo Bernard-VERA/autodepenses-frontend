@@ -71,7 +71,7 @@ export default function Dashboard({ data }) {
           >
             <option value="all">Tous les véhicules</option>
             {data.vehicles.map((v) => (
-              <option key={v.id} value={v.id}>
+              <option key={v._id} value={v._id}>
                 {v.name}
               </option>
             ))}

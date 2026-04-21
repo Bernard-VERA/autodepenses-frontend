@@ -8,7 +8,7 @@ export default function ExpenseForm({
   onCancel,
 }) {
   const [vehicleId, setVehicleId] = useState(
-    initial?.vehicleId || (vehicles[0]?.id ?? "")
+    initial?.vehicleId || (vehicles[0]?._id ?? "")
   );
   const [date, setDate] = useState(
     initial?.date || new Date().toISOString().slice(0, 10)
@@ -54,7 +54,7 @@ export default function ExpenseForm({
             required
           >
             {vehicles.map((v) => (
-              <option key={v.id} value={v.id}>
+              <option key={v._id} value={v._id}>
                 {v.name}
               </option>
             ))}

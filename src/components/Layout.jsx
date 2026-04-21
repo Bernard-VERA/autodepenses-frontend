@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./Layout.css";
 
-export default function Layout({ children }) {
+export default function Layout({ children, userEmail, onLogout }) {
   return (
     <div className="app-layout">
       <header className="app-header">
@@ -36,6 +36,12 @@ export default function Layout({ children }) {
             🚗 Véhicules
           </NavLink>
         </nav>
+        <div className="user-info">
+          <span>{userEmail}</span>
+          <button className="btn btn-sm btn-secondary" onClick={onLogout}>
+            Déconnexion
+          </button>
+        </div>
       </header>
       <main className="app-main">{children}</main>
       <footer className="app-footer">

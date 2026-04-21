@@ -84,7 +84,7 @@ export default function Expenses({ data, onAdd, onUpdate, onDelete }) {
           >
             <option value="all">Tous</option>
             {data.vehicles.map((v) => (
-              <option key={v.id} value={v.id}>
+              <option key={v._id} value={v._id}>
                 {v.name}
               </option>
             ))}
@@ -144,7 +144,7 @@ export default function Expenses({ data, onAdd, onUpdate, onDelete }) {
               </thead>
               <tbody>
                 {filtered.map((e) => (
-                  <tr key={e.id}>
+                  <tr key={e._id}>
                     <td>{new Date(e.date).toLocaleDateString("fr-FR")}</td>
                     <td>{vehicleMap[e.vehicleId] || "—"}</td>
                     <td>{e.mileage.toLocaleString("fr-FR")}</td>
