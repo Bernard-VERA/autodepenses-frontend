@@ -20,6 +20,11 @@ export default function Vehicles({ data, onAdd, onUpdate, onDelete }) {
     setShowForm(true);
   };
 
+  const handleDelete = (id) => {
+    if (confirm("Supprimer ce véhicule ?")) onDelete(id);
+  };
+
+
   return (
     <div>
       <div
@@ -91,7 +96,7 @@ export default function Vehicles({ data, onAdd, onUpdate, onDelete }) {
                         </button>
                         <button
                           className="btn btn-danger btn-sm"
-                          onClick={() => onDelete(v._id)}
+                          onClick={() => handleDelete(v._id)}
                           title="Supprimer"
                         >
                           🗑️
