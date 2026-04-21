@@ -36,7 +36,7 @@ export default function Expenses({ data, onAdd, onUpdate, onDelete }) {
 
   const handleSubmit = (values) => {
     if (editing) {
-      onUpdate({ ...values, id: editing.id });
+      onUpdate({ ...values, _id: editing._id });
       setEditing(null);
     } else {
       onAdd(values);

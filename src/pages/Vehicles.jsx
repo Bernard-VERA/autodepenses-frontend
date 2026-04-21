@@ -7,7 +7,7 @@ export default function Vehicles({ data, onAdd, onUpdate, onDelete }) {
 
   const handleSubmit = (values) => {
     if (editing) {
-      onUpdate({ ...values, id: editing.id });
+      onUpdate({ ...values, _id: editing._id });
       setEditing(null);
     } else {
       onAdd(values);
@@ -62,7 +62,7 @@ export default function Vehicles({ data, onAdd, onUpdate, onDelete }) {
               </thead>
               <tbody>
                 {data.vehicles.map((v) => (
-                  <tr key={v.id}>
+                  <tr key={v._id}>
                     <td style={{ fontWeight: 600 }}>{v.name}</td>
                     <td>
                       {[v.brand, v.model].filter(Boolean).join(" ") || "—"}
@@ -91,7 +91,7 @@ export default function Vehicles({ data, onAdd, onUpdate, onDelete }) {
                         </button>
                         <button
                           className="btn btn-danger btn-sm"
-                          onClick={() => onDelete(v.id)}
+                          onClick={() => onDelete(v._id)}
                           title="Supprimer"
                         >
                           🗑️
