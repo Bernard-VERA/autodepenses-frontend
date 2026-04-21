@@ -22,7 +22,7 @@ export default function Expenses({ data, onAdd, onUpdate, onDelete }) {
   }, [data.expenses, filterVehicle, filterCategory, filterFrom, filterTo]);
 
   const vehicleMap = Object.fromEntries(
-    data.vehicles.map((v) => [v.id, v.name])
+    data.vehicles.map((v) => [v._id, v.name])
   );
   const categoryMap = Object.fromEntries(
     data.categories.map((c) => [c.id, c.label])
