@@ -40,7 +40,9 @@ export default function Login() {
         <div className="login-page">
             <div className="card login-card">
                 <h1>🚗 Suivi Véhicule</h1>
+                <p>Vous n'êtes pas connecté en tant qu'utilisateur !</p>
                 <p>Entrez votre email pour recevoir un lien de connexion :</p>
+                <p>(Surveillez aussi votre dossier "Spams")</p>
                 {error && <p className="error-msg">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
