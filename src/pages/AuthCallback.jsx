@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AuthCallback() {
-    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const { search } = useLocation();
     const [error, setError] = useState("");
 
     useEffect(() => {
-        const token = searchParams.get("token");
-        const email = searchParams.get("email");
+        const params = new URLSearchParams(search);
+        const token = params.get("token");
+        const email = params.get("email");
 
         if (token && email) {
             localStorage.setItem("authToken", token);
@@ -17,7 +18,7 @@ export default function AuthCallback() {
         } else {
             setError("Lien de connexion invalide.");
         }
-    }, [searchParams, navigate]);
+    }, [search, navigate]);
 
     if (error) {
         return (
