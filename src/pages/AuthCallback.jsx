@@ -4,20 +4,26 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function AuthCallback() {
     const navigate = useNavigate();
     const { search } = useLocation();
-    const [error, setError] = useState("");
+
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        // On attend un cycle de rendu pour être sûr que search est bien rempli
+        // On attend un cycle pour laisser React Router remplir search
         const timeout = setTimeout(() => {
             const params = new URLSearchParams(search);
             const token = params.get("token");
             const email = params.get("email");
 
             if (token && email) {
+                // On stocke le token AVANT de rediriger
                 localStorage.setItem("authToken", token);
                 localStorage.setItem("userEmail", email);
-                navigate("/", { replace: true });
+
+                // On attend un mini délai pour que ProtectedRoute voie le token
+                setTimeout(() => {
+                    navigate("/", { replace: true });
+                }, 50);
             } else {
                 setError("Lien de connexion invalide.");
             }
