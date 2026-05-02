@@ -10,7 +10,7 @@ export default function AuthVerify() {
 
     if (token && email) {
       // Rediriger vers le backend pour vérification
-      window.location.href = `${import.meta.env.VITE_API_URI}/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
+      window.location.href = `${import.meta.env.API_URI}/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
     }
   }, [searchParams]);
 
