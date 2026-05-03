@@ -5,7 +5,6 @@ import Vehicles from "./pages/Vehicles";
 import Expenses from "./pages/Expenses";
 import Login from "./pages/Login";
 import AuthCallback from "./pages/AuthCallback";
-import AuthVerify from "./pages/AuthVerify";
 import { useAppData } from "./hooks/useAppData";
 
 function ProtectedRoute({ children }) {
