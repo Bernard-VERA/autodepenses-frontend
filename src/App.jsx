@@ -79,7 +79,6 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
-        <Route path="/auth/verify" element={<AuthVerify />} />
         <Route
           path="/*"
           element={
