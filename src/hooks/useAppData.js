@@ -19,6 +19,11 @@ export function useAppData() {
   // Charger les données au montage
   useEffect(() => {
     async function load() {
+      // ⛔ Empêche les appels API si l’utilisateur n’est pas connecté
+      if (!localStorage.getItem("authToken")) {
+        setLoading(false);
+        return;
+      }
       try {
         const [v, e] = await Promise.all([fetchVehicles(), fetchExpenses()]);
         setVehicles(v);
