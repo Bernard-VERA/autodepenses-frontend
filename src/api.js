@@ -31,58 +31,58 @@ async function request(path, options = {}) {
 
 // Auth
 export function sendMagicLink(email) {
-    return request("/auth/send-magic-link", {
+    return request("/api/auth/send-magic-link", {
         method: "POST",
         body: JSON.stringify({ email }),
     });
 }
 
 export function getMe() {
-    return request("/auth/me");
+    return request("/api/auth/me");
 }
 
 // Vehicles
 export function fetchVehicles() {
-    return request("/vehicles");
+    return request("/api/vehicles");
 }
 
 export function createVehicle(data) {
-    return request("/vehicles", {
+    return request("/api/vehicles", {
         method: "POST",
         body: JSON.stringify(data),
     });
 }
 
 export function updateVehicle(id, data) {
-    return request("/vehicles/" + id, {
+    return request("/api/vehicles/" + id, {
         method: "PUT",
         body: JSON.stringify(data),
     });
 }
 
 export function deleteVehicle(id) {
-    return request("/vehicles/" + id, { method: "DELETE" });
+    return request("/api/vehicles/" + id, { method: "DELETE" });
 }
 
 // Expenses
 export function fetchExpenses() {
-    return request("/expenses");
+    return request("/api/expenses");
 }
 
 export function createExpense(data) {
-    return request("/expenses", {
+    return request("/api/expenses", {
         method: "POST",
         body: JSON.stringify(data),
     });
 }
 
 export function updateExpense(id, data) {
-    return request("/expenses/" + id, {
+    return request("/api/expenses/" + id, {
         method: "PUT",
         body: JSON.stringify(data),
     });
 }
 
 export function deleteExpense(id) {
-    return request("/expenses/" + id, { method: "DELETE" });
+    return request("/api/expenses/" + id, { method: "DELETE" });
 }
