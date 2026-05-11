@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./Layout.css";
 
 export default function Layout({ children, userEmail, onLogout }) {
@@ -9,6 +9,7 @@ export default function Layout({ children, userEmail, onLogout }) {
           <span role="img" aria-label="voiture">🚗</span>
           <span>AutoDépenses</span>
         </div>
+
         <nav className="header-nav">
           <NavLink
             to="/"
@@ -19,6 +20,7 @@ export default function Layout({ children, userEmail, onLogout }) {
           >
             📊 Tableau de bord
           </NavLink>
+
           <NavLink
             to="/expenses"
             className={({ isActive }) =>
@@ -27,6 +29,7 @@ export default function Layout({ children, userEmail, onLogout }) {
           >
             🧾 Dépenses
           </NavLink>
+
           <NavLink
             to="/vehicles"
             className={({ isActive }) =>
@@ -36,14 +39,25 @@ export default function Layout({ children, userEmail, onLogout }) {
             🚗 Véhicules
           </NavLink>
         </nav>
+
         <div className="user-info">
-          <span>{userEmail}</span>
-          <button className="btn btn-sm btn-secondary" onClick={onLogout}>
-            Déconnexion
-          </button>
+          {userEmail ? (
+            <>
+              <span>{userEmail}</span>
+              <button className="btn btn-sm btn-secondary" onClick={onLogout}>
+                Déconnexion
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="btn btn-sm btn-primary">
+              Se connecter
+            </Link>
+          )}
         </div>
       </header>
+
       <main className="app-main">{children}</main>
+
       <footer className="app-footer">
         AutoDépenses © {new Date().getFullYear()}
       </footer>
