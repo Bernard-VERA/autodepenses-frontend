@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Vehicles from "./pages/Vehicles";
@@ -9,7 +9,9 @@ import { useAppData } from "./hooks/useAppData";
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem("authToken");
-  if (!token) return <Navigate to="/login" replace />;
+  if (!token) {
+    return <Login />;
+  }
   return children;
 }
 
@@ -38,33 +40,41 @@ function AppContent() {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userEmail");
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   return (
     <Layout userEmail={userEmail} onLogout={handleLogout}>
       <Routes>
+        {/* Dashboard accessible à tous */}
         <Route path="/" element={<Dashboard data={data} />} />
+
+        {/* Pages protégées */}
         <Route
           path="/vehicles"
           element={
-            <Vehicles
-              data={data}
-              onAdd={addVehicle}
-              onUpdate={updateVehicle}
-              onDelete={deleteVehicle}
-            />
+            <ProtectedRoute>
+              <Vehicles
+                data={data}
+                onAdd={addVehicle}
+                onUpdate={updateVehicle}
+                onDelete={deleteVehicle}
+              />
+            </ProtectedRoute>
           }
         />
+
         <Route
           path="/expenses"
           element={
-            <Expenses
-              data={data}
-              onAdd={addExpense}
-              onUpdate={updateExpense}
-              onDelete={deleteExpense}
-            />
+            <ProtectedRoute>
+              <Expenses
+                data={data}
+                onAdd={addExpense}
+                onUpdate={updateExpense}
+                onDelete={deleteExpense}
+              />
+            </ProtectedRoute>
           }
         />
       </Routes>
@@ -78,14 +88,9 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoute>
-              <AppContent />
-            </ProtectedRoute>
-          }
-        />
+
+        {/* Toutes les autres routes passent par AppContent */}
+        <Route path="/*" element={<AppContent />} />
       </Routes>
     </BrowserRouter>
   );
