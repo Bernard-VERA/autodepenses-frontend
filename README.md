@@ -21,7 +21,6 @@ Le projet est construit en deux étapes successives :
 
 1. Création du Frontend — Gestion locale et interface utilisateur
 *	Application web intuitive permettant d’ajouter, modifier et consulter toutes les dépenses.
-*	Stockage des données directement dans le localStorage, garantissant une utilisation rapide et sans connexion.
 *	Interface pensée pour être simple, efficace et agréable à utiliser.  
 
 2. Création d'un Backend — Authentification et base de données
@@ -30,6 +29,7 @@ Le projet est construit en deux étapes successives :
 *	API dédiée pour gérer les opérations CRUD et assurer une transition fluide entre la version locale et la version connectée.  
 <br/>
 La partie Frontend et la partie Backend sont créées et opérationnelles. Le déploiement sur VERCEL est un peu compliqué. Les données sont stockées dans une base de données, avec authentification de l'utilisateur. La base du site est posée, mais il faut encore l'améliorer et corriger les bugs.  
+
 
 <br/>
 Vous pouvez suivre l'avancée du projet sur : <a href="https://autodepenses-frontend.vercel.app/" target="_blank">AutoDépenses</a>  
